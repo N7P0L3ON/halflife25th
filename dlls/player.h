@@ -260,6 +260,11 @@ public:
 	void StartDeathCam( void );
 	void StartObserver( Vector vecPosition, Vector vecViewAngle );
 
+	// Observer stuff
+	void StopObserver();
+	void EndObserver();
+	float m_flNextSpectCmd;
+
 	void AddPoints( int score, BOOL bAllowNegativeScore );
 	void AddPointsToTeam( int score, BOOL bAllowNegativeScore );
 	BOOL AddPlayerItem( CBasePlayerItem *pItem );

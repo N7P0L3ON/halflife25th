@@ -40,6 +40,7 @@ cvar_t	defaultteam = {"mp_defaultteam","0" };
 cvar_t	allowmonsters={"mp_allowmonsters","0", FCVAR_SERVER };
 
 cvar_t  allow_spectators = { "allow_spectators", "0.0", FCVAR_SERVER };		// 0 prevents players from being spectators
+cvar_t	spectatate_cmd_delay = { "spectatate_cmd_delay", "30", FCVAR_SERVER };		// how long until we can type spectate or end_spectate again
 
 cvar_t  mp_chattime = {"mp_chattime","10", FCVAR_SERVER };
 
@@ -468,6 +469,7 @@ void GameDLLInit( void )
 
 	CVAR_REGISTER (&displaysoundlist);
 	CVAR_REGISTER( &allow_spectators );
+	CVAR_REGISTER ( &spectatate_cmd_delay );
 
 	CVAR_REGISTER (&teamplay);
 	CVAR_REGISTER (&fraglimit);

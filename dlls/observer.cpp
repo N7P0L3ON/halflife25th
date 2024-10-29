@@ -278,3 +278,42 @@ void CBasePlayer::Observer_SetMode( int iMode )
 
 	m_iObserverLastMode = iMode;
 }
+
+extern int gmsgTeamInfo;
+extern int g_teamplay;
+extern void respawn( entvars_t* pev, BOOL fCopyCorpse );
+
+void CBasePlayer::StopObserver()
+{
+	// Turn off spectator
+	pev->iuser1 = pev->iuser2 = 0;
+	m_iHideHUD = 0;
+
+	GetClassPtr( (CBasePlayer *)pev )->Spawn();
+	pev->nextthink = -1;
+
+	// Update Team Status
+	MESSAGE_BEGIN( MSG_ALL, gmsgTeamInfo );
+		WRITE_BYTE( ENTINDEX( edict() ) ); // index number of primary entity
+	if( g_teamplay )
+		WRITE_STRING( TeamID() );
+	else
+		WRITE_STRING( "Players" );
+	MESSAGE_END();
+
+	m_fWeapon = FALSE; // force weapon send
+	m_iHideHUD = 0;
+}
+
+void CBasePlayer::EndObserver()
+{
+	m_iHideHUD &= ~(HIDEHUD_HEALTH | HIDEHUD_WEAPONS);
+	m_afPhysicsFlags &= ~PFLAG_OBSERVER;
+	pev->iuser1 = 0;
+	pev->iuser2 = 0;
+
+	RemoveAllItems(1);
+
+	respawn(pev, false);
+}
+

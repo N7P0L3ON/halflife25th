@@ -21,6 +21,10 @@ extern void GameDLLInit( void );
 
 extern cvar_t	displaysoundlist;
 
+// Spectator settings
+extern cvar_t 	allow_spectators;
+extern cvar_t 	spectatate_cmd_delay;
+
 // multiplayer server rules
 extern cvar_t	teamplay;
 extern cvar_t	fraglimit;
